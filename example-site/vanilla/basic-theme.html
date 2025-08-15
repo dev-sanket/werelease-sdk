@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WeRelease SDK - Basic Theme Demo</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f8f9fa;
+        line-height: 1.6;
+      }
+      
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+      
+      h1 {
+        color: #1a202c;
+        margin-bottom: 10px;
+      }
+      
+      .subtitle {
+        color: #666;
+        margin-bottom: 40px;
+        font-size: 18px;
+      }
+      
+      .theme-section {
+        margin-bottom: 50px;
+        padding: 20px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        background: #fafbfc;
+      }
+      
+      .theme-title {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #2d3748;
+      }
+      
+      .theme-description {
+        color: #666;
+        margin-bottom: 20px;
+        font-size: 16px;
+      }
+      
+      .demo-area {
+        background: white;
+        padding: 20px;
+        border-radius: 6px;
+        border: 1px solid #e2e8f0;
+      }
+      
+      .code-block {
+        background: #f7fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        padding: 15px;
+        margin-top: 15px;
+        font-family: 'Monaco', 'Consolas', monospace;
+        font-size: 14px;
+        color: #2d3748;
+        overflow-x: auto;
+      }
+      
+      @media (prefers-color-scheme: dark) {
+        body { background: #1a202c; color: #e2e8f0; }
+        .container { background: #2d3748; color: #e2e8f0; }
+        .theme-section { background: #374151; border-color: #4a5568; }
+        .demo-area { background: #1a202c; border-color: #4a5568; }
+        .code-block { background: #374151; border-color: #4a5568; color: #e2e8f0; }
+        .theme-title { color: #f7fafc; }
+        .theme-description { color: #cbd5e0; }
+        .subtitle { color: #a0aec0; }
+        h1 { color: #f7fafc; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>WeRelease SDK - Basic Theme Demo</h1>
+      <p class="subtitle">Testing the basic theme with simple redirect functionality</p>
+      
+      <div class="theme-section">
+        <div class="theme-title">🔹 Basic Theme</div>
+        <div class="theme-description">
+          Clean and minimal design perfect for simple, lightweight notifications. 
+          Uses standard fonts and basic styling for maximum compatibility.<br>
+          • <strong>Simple Redirect</strong> - "View Changes" opens redirect URL in new tab<br>
+          • <strong>No Popup</strong> - Direct navigation to changelog page<br>
+          • <strong>Lightweight</strong> - Minimal JavaScript and CSS
+        </div>
+        <div class="demo-area">
+          <div id="basic-banner" style="min-height: 40px; border: 2px dashed #ddd; background: #fafafa;"></div>
+          <p><em>Basic banner should appear above this text</em></p>
+        </div>
+        <div class="code-block">const werelease = WeRelease.init({
+  projectId: "ff87a07f-b906-43eb-a6ac-35b50281c612",
+  target: "#basic-banner",
+  options: {
+    showDismissButton: true,
+    makeBannerClickable: false,
+  }
+});
+
+werelease.showBanner();</div>
+      </div>
+
+      <div class="theme-section">
+        <div class="theme-title">🧪 Test Manual Feedback</div>
+        <div class="theme-description">
+          Try the manual feedback modal that developers can trigger programmatically.
+        </div>
+        <div class="demo-area">
+          <button id="test-feedback-btn" style="
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+          " onmouseover="this.style.transform='translateY(-1px)'" 
+             onmouseout="this.style.transform='translateY(0)'">
+            🗨️ Ask for Feedback
+          </button>
+        </div>
+      </div>
+      
+      <div class="theme-section">
+        <div class="theme-title">🔗 Navigation</div>
+        <div class="theme-description">
+          Test other themes:
+        </div>
+        <div class="demo-area">
+          <a href="premium-theme.html" style="
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-block;
+            margin-right: 10px;
+          ">✨ Premium Theme</a>
+          <a href="index.html" style="
+            background: #e2e8f0;
+            color: #2d3748;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-block;
+          ">🏠 Home</a>
+        </div>
+      </div>
+    </div>
+    
+          <!-- WeRelease SDK - served from public directory -->
+      <script src="/widget.min.js"></script>
+    <script>
+      let wereleaseInstance = null; // Global variable to store the instance
+      
+      const init = async () => {
+        try {
+          // Initialize Basic Theme Example
+          wereleaseInstance = await WeRelease.init({
+            projectId: "ff87a07f-b906-43eb-a6ac-35b50281c612",
+            target: "#basic-banner",
+            options: {
+              showDismissButton: true,
+              makeBannerClickable: false,
+            }
+          });
+          
+          wereleaseInstance.showBanner();
+          console.log('Basic theme initialized successfully');
+        } catch (error) {
+          console.error('Error initializing WeRelease:', error);
+        }
+      }
+      
+      init();
+      
+      // Wire up manual feedback button
+      document.getElementById('test-feedback-btn').onclick = () => {
+        if (wereleaseInstance) {
+          console.log('Feedback button clicked');
+          wereleaseInstance.askForFeedback();
+        } else {
+          console.error('WeRelease instance not initialized');
+        }
+      };
+    </script>
+  </body>
+</html> 

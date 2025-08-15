@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WeRelease SDK - Theme Demo</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f8f9fa;
+        line-height: 1.6;
+      }
+      
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+      
+      h1 {
+        color: #1a202c;
+        margin-bottom: 10px;
+      }
+      
+      .subtitle {
+        color: #666;
+        margin-bottom: 40px;
+        font-size: 18px;
+      }
+      
+      .theme-section {
+        margin-bottom: 50px;
+        padding: 20px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        background: #fafbfc;
+      }
+      
+      .theme-title {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #2d3748;
+      }
+      
+      .theme-description {
+        color: #666;
+        margin-bottom: 20px;
+        font-size: 16px;
+      }
+      
+      .demo-area {
+        background: white;
+        padding: 20px;
+        border-radius: 6px;
+        border: 1px solid #e2e8f0;
+      }
+      
+      .code-block {
+        background: #f7fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        padding: 15px;
+        margin-top: 15px;
+        font-family: 'Monaco', 'Consolas', monospace;
+        font-size: 14px;
+        color: #2d3748;
+        overflow-x: auto;
+      }
+      
+      @media (prefers-color-scheme: dark) {
+        body { background: #1a202c; color: #e2e8f0; }
+        .container { background: #2d3748; color: #e2e8f0; }
+        .theme-section { background: #374151; border-color: #4a5568; }
+        .demo-area { background: #1a202c; border-color: #4a5568; }
+        .code-block { background: #374151; border-color: #4a5568; color: #e2e8f0; }
+        .theme-title { color: #f7fafc; }
+        .theme-description { color: #cbd5e0; }
+        .subtitle { color: #a0aec0; }
+        h1 { color: #f7fafc; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>WeRelease SDK - Theme Showcase</h1>
+      <p class="subtitle">Compare the Basic and Premium themes for your release notifications</p>
+      
+      <div class="theme-section">
+        <div class="theme-title">🔹 Basic Theme</div>
+        <div class="theme-description">
+          Clean and minimal design perfect for simple, lightweight notifications. 
+          Uses standard fonts and basic styling for maximum compatibility.<br>
+          • <strong>Simple Redirect</strong> - "View Changes" opens redirect URL in new tab<br>
+          • <strong>No Popup</strong> - Direct navigation to changelog page<br>
+          • <strong>Lightweight</strong> - Minimal JavaScript and CSS
+        </div>
+        <div class="demo-area">
+          <a href="basic-theme.html" style="
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-block;
+          ">🔹 Test Basic Theme</a>
+        </div>
+        <div class="code-block">WeRelease.init({
+  projectId: "ff87a07f-b906-43eb-a6ac-35b50281c612",
+  target: "#basic-banner",
+  options: {
+    enableDismiss: false,
+    theme: "basic"
+  }
+});</div>
+      </div>
+      
+      <div class="theme-section">
+        <div class="theme-title">✨ Premium Theme</div>
+        <div class="theme-description">
+          Modern, sophisticated design with interactive features:<br>
+          • <strong>Real Changelog Data</strong> - Fetches from your published changelogs<br>
+          • <strong>Markdown Parsing</strong> - Converts descriptions to HTML with formatting<br>
+          • <strong>Feature Extraction</strong> - Auto-generates cards from bullet points/tags<br>
+          • <strong>Scrollable Content</strong> - Graceful handling of long descriptions<br>
+          • <strong>Smart Positioning</strong> - Popover appears next to trigger button<br>
+          • <strong>Dismiss Options</strong> - X button and "Show me later"<br>
+          • <strong>NEW Badge</strong> with timestamp ("2 days ago")<br>
+          • <strong>Clickable Area</strong> - Banner click handler for custom actions<br>
+          • <strong>Manual Feedback</strong> - WeRelease.askForFeedback() for ratings<br>
+          • <strong>Animations & Dark Mode</strong> - Polished UX with theme support
+        </div>
+        <div class="demo-area">
+          <a href="premium-theme.html" style="
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-block;
+          ">✨ Test Premium Theme</a>
+        </div>
+        <div class="code-block">WeRelease.init({
+  projectId: "4f3bbcb8-6aeb-4d3a-8c17-72d5796474e7",
+  target: "#premium-banner",
+  options: {
+    theme: "premium",
+    enableDismiss: true,         // Show X button for closing
+    showNewBadge: true,          // Show "NEW" badge and timestamp
+    clickableArea: true,         // Make whole banner clickable
+    onBannerClick: (event, data) => {
+      console.log('Banner clicked!', data);
+      alert('Banner clicked! Check console for data. "View Changes" button opens a different modal.');
+    }
+  }
+});</div>
+      </div>
+
+      <div class="theme-section">
+        <div class="theme-title">📊 Real Changelog Data Integration</div>
+        <div class="theme-description">
+          The widget automatically fetches your latest published changelog from the database.<br>
+          Content is dynamically generated from your actual changelog data instead of hardcoded text.
+        </div>
+        <div class="code-block">// Basic Setup - API auto-detected from current domain
+WeRelease.init({
+  projectId: "ff87a07f-b906-43eb-a6ac-35b50281c612", // Your project UUID
+  options: {
+    theme: "premium"
+  }
+});
+
+// Note: API calls use window.location.origin automatically
+// Deploy your widget anywhere and it will call back to the same domain
+
+// Changelog Data Structure (Auto-fetched):
+// {
+//   title: "Holiday Release 2024",
+//   subtitle: "Bringing you festive features", 
+//   version: "v2.4.0",
+//   tags: "feature,ui,performance,mobile",
+//   description: "## What's New\n- ✨ Dark mode support\n- ⚡ 50% faster loading\n...",
+//   releaseDate: "2024-12-21T00:00:00Z"
+// }
+
+// Features Auto-Generated From:
+// 1. Bullet points in markdown description
+// 2. Tags converted to feature cards  
+// 3. Fallback to generic features
+// 4. Markdown converted to HTML with styling</div>
+      </div>
+
+      <div class="theme-section">
+        <div class="theme-title">⚙️ Custom Click Handler Examples</div>
+        <div class="theme-description">
+          Three separate actions: Banner clicks, "View Changes" button, and manual feedback requests.
+        </div>
+        <div class="code-block">// Banner Click Handler (optional)
+const werelease = WeRelease.init({
+  projectId: "your-project-id",
+  options: {
+    theme: "premium",
+    onBannerClick: (event, data) => {
+      // Only triggered when clicking banner area (not buttons)
+      console.log('Banner clicked!', data);
+      // Maybe redirect to full changelog page
+      window.open('/changelog', '_blank');
+    }
+  }
+});
+
+// Manual Feedback Request
+document.getElementById('feedback-btn').onclick = () => {
+  werelease.askForFeedback(); // Shows feedback modal
+};
+
+// "View Changes" shows positioned popover with AI features
+// Auto-positions above/below button - no configuration needed
+
+// Track both actions separately
+const werelease2 = WeRelease.init({
+  projectId: "your-project-id",
+  options: {
+    theme: "premium",
+    onBannerClick: (event, data) => {
+      analytics.track('banner_clicked', data);
+    }
+  }
+});
+
+// Add manual trigger button
+&lt;button onclick="werelease.askForFeedback()"&gt;
+  Share Feedback
+&lt;/button&gt;</div>
+      </div>
+
+      <div class="theme-section">
+        <div class="theme-title">🧪 Test Manual Feedback</div>
+        <div class="theme-description">
+          Try the manual feedback modal that developers can trigger programmatically.
+        </div>
+        <div class="demo-area">
+          <button id="test-feedback-btn" style="
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+          " onmouseover="this.style.transform='translateY(-1px)'" 
+             onmouseout="this.style.transform='translateY(0)'">
+            🗨️ Ask for Feedback
+          </button>
+        </div>
+      </div>
+      
+      <!-- <div id="app"></div> -->
+    </div>
+    
+    <!-- <script type="module" src="/src/main.js"></script> -->
+          <!-- WeRelease SDK - served from public directory -->
+      <!-- <script src="/widget.min.js"></script> -->
+  </body>
+</html>
