@@ -1,15 +1,20 @@
 # WeRelease SDK
 
-A lightweight JavaScript SDK for integrating changelog banners and feedback collection into your web applications.
+A lightweight JavaScript SDK for integrating changelog banners and feedback collection into your web applications. Built with TypeScript and designed for modern web development.
 
 ## Features
 
-- 🚀 **Changelog Banners**: Display release updates with customizable themes
+- 🚀 **Changelog Banners**: Display release updates with customizable themes (Basic & Premium)
 - 💬 **Feedback Collection**: Gather user feedback through emoji reactions and text comments
 - 👤 **User Identification**: Map anonymous sessions to authenticated users
-- 🎨 **Customizable UI**: Support for both basic and premium themes
+- 🎨 **Customizable UI**: Support for both basic and premium themes with custom styling
 - 📱 **Responsive Design**: Works seamlessly across all device sizes
 - 🔒 **Privacy First**: Anonymous tracking with optional user identification
+- ⚡ **TypeScript Support**: Full type definitions for better developer experience
+- 🎯 **Multiple Themes**: Basic banner and Premium banner with rich content display
+- 📊 **Analytics Tracking**: Built-in impression and interaction tracking
+- 🎭 **Custom Styling**: CSS variables and custom class support
+- 🔧 **Utility Functions**: Date formatting, DOM manipulation, and markdown parsing
 
 ## Installation
 
@@ -17,6 +22,18 @@ A lightweight JavaScript SDK for integrating changelog banners and feedback coll
 
 ```bash
 npm install @werelease/sdk
+```
+
+### Yarn
+
+```bash
+yarn add @werelease/sdk
+```
+
+### PNPM
+
+```bash
+pnpm add @werelease/sdk
 ```
 
 ### CDN
@@ -27,214 +44,473 @@ npm install @werelease/sdk
 
 ## Quick Start
 
-### Instance-Based API
+### Basic Setup
 
-```javascript
-import { WeRelease } from '@werelease/sdk';
+```typescript
+import { WeRelease, WeReleaseConfig } from '@werelease/sdk';
 
-// Initialize and get an instance
-const werelease = WeRelease.init({
+// Define your configuration
+const config: WeReleaseConfig = {
   projectId: 'your-project-id',
   target: '#changelog-banner',
   options: {
     showDismissButton: true,
     feedbackType: 'both',
+    makeBannerClickable: true,
   },
-});
+};
 
-// Show the changelog banner
-werelease.showBanner();
+// Initialize and get an instance
+const werelease = await WeRelease.init(config);
 
-// Ask for feedback
+// The banner will automatically show if there's a new changelog
+// You can also manually trigger feedback collection
 werelease.askForFeedback();
 
-// Identify user
-werelease.identify({
-  id: 'user-123',
-  email: 'user@example.com',
-  name: 'John Doe',
-});
-```
-
-### Multiple Instances
-
-```javascript
-// Create multiple instances for different projects
-const project1 = WeRelease.init({
-  projectId: 'project-1',
-  target: '#banner-1',
-});
-
-const project2 = WeRelease.init({
-  projectId: 'project-2',
-  target: '#banner-2',
-});
-
-// Each instance maintains its own state
-project1.showBanner();
-project2.askForFeedback();
-```
-
-## Configuration
-
-### WeReleaseConfig
-
-| Property    | Type               | Required | Description                                           |
-| ----------- | ------------------ | -------- | ----------------------------------------------------- |
-| `projectId` | `string`           | ✅       | Your unique project identifier                        |
-| `user`      | `WeReleaseUser`    | ❌       | User identification data                              |
-| `target`    | `string`           | ❌       | CSS selector for banner placement (default: `'body'`) |
-| `options`   | `WeReleaseOptions` | ❌       | Customization options                                 |
-
-### WeReleaseOptions
-
-| Property               | Type                          | Default     | Description                           |
-| ---------------------- | ----------------------------- | ----------- | ------------------------------------- |
-| `showDismissButton`    | `boolean`                     | `true`      | Show dismiss/close button             |
-| `makeBannerClickable`  | `boolean`                     | `true`      | Make entire banner clickable          |
-| `dismissFeedbackModal` | `boolean`                     | `true`      | Allow users to dismiss feedback modal |
-| `feedbackType`         | `'emoji' \| 'text' \| 'both'` | `'both'`    | Type of feedback to collect           |
-| `styles`               | `Record<string, string>`      | `{}`        | Custom CSS styles                     |
-| `className`            | `string`                      | `''`        | Additional CSS classes                |
-| `onBannerClick`        | `function`                    | `undefined` | Custom banner click handler           |
-
-### WeReleaseUser
-
-| Property | Type     | Required | Description                  |
-| -------- | -------- | -------- | ---------------------------- |
-| `id`     | `string` | ✅       | Unique user identifier       |
-| `email`  | `string` | ❌       | User's email address         |
-| `name`   | `string` | ❌       | User's display name          |
-| `[key]`  | `any`    | ❌       | Additional custom properties |
-
-## API Reference
-
-### Instance Methods
-
-#### `init(config: WeReleaseConfig): Promise<void>`
-
-Initialize the SDK instance with configuration.
-
-#### `showBanner(): void`
-
-Display the changelog banner in the configured target.
-
-#### `askForFeedback(options?: WeReleaseFeedbackOptions): void`
-
-Trigger the feedback collection modal.
-
-#### `identify(userData: WeReleaseUser): Promise<void>`
-
-Map the current anonymous session to the provided user.
-
-#### `hasFeedbackBeenSubmitted(): boolean`
-
-Check if feedback has already been submitted for the current changelog.
-
-#### `resetFeedbackStatus(): boolean`
-
-Reset the feedback submission status (useful for testing).
-
-#### `getProjectId(): string | undefined`
-
-Get the current project ID.
-
-#### `getUser(): WeReleaseUser | null`
-
-Get the current user data.
-
-#### `getTarget(): string`
-
-Get the current target selector.
-
-#### `getOptions()`
-
-Get a copy of the current options.
-
-### Static Methods
-
-#### `WeRelease.init(config: WeReleaseConfig): WeReleaseInstance`
-
-Initialize the SDK and return an instance. This is the only static method available.
-
-## Advanced Usage
-
-### Multiple Instances
-
-```javascript
-import { WeRelease } from '@werelease/sdk';
-
-// Create multiple instances for different projects
-const project1 = WeRelease.init({
-  projectId: 'project-1',
-  target: '#banner-1',
-});
-
-const project2 = WeRelease.init({
-  projectId: 'project-2',
-  target: '#banner-2',
-});
-
-// Each instance maintains its own state
-project1.showBanner();
-project2.askForFeedback();
-```
-
-### Custom Event Handlers
-
-```javascript
-const werelease = WeRelease.init({
-  projectId: 'your-project-id',
-  options: {
-    onBannerClick: (event, data) => {
-      console.log('Banner clicked:', data);
-      // Custom logic here
-    },
-  },
-});
-```
-
-### Feedback Options
-
-```javascript
-// Override default feedback settings
+// Or with custom options
 werelease.askForFeedback({
   dismiss: false, // Prevent modal dismissal
   type: 'emoji', // Only collect emoji reactions
 });
 ```
 
-## Browser Support
+### User Identification
 
-- Chrome 60+
-- Firefox 55+
-- Safari 12+
-- Edge 79+
+```typescript
+import { WeReleaseUser } from '@werelease/sdk';
 
-## Development
+// Define user data
+const userData: WeReleaseUser = {
+  id: 'user-123',
+  email: 'user@example.com',
+  name: 'John Doe',
+  // Optional custom properties
+  role: 'developer',
+};
 
-### Building
-
-```bash
-npm run build
+// Identify the current user
+werelease.identify(userData);
 ```
 
-### Testing
+## React Integration
 
-```bash
-npm test
+### Simple React Component
+
+Here's a basic example that any developer can understand:
+
+```typescript
+import React, { useEffect } from 'react';
+import { WeRelease } from '@werelease/sdk';
+
+function ChangelogBanner() {
+  useEffect(() => {
+    // Initialize WeRelease when component mounts
+    const initWeRelease = async () => {
+      const werelease = await WeRelease.init({
+        projectId: 'your-project-id',
+        target: '#changelog-banner',
+      });
+
+      // Show feedback button when user clicks
+      const feedbackButton = document.getElementById('feedback-btn');
+      if (feedbackButton) {
+        feedbackButton.onclick = () => {
+          // Basic feedback request
+          werelease.askForFeedback();
+
+          // Or with custom options
+          werelease.askForFeedback({
+            dismiss: false, // Prevent modal dismissal
+            type: 'emoji', // Only collect emoji reactions
+          });
+        };
+      }
+    };
+
+    initWeRelease();
+  }, []);
+
+  return (
+    <div>
+      {/* WeRelease will automatically show the banner here */}
+      <div id="changelog-banner" />
+
+      {/* Custom feedback button */}
+      <button id="feedback-btn" className="feedback-button">
+        Give Feedback
+      </button>
+    </div>
+  );
+}
+
+export default ChangelogBanner;
 ```
 
-### Development Server
+### With User Login
 
-```bash
-npm run dev
+If you want to identify users when they log in:
+
+```typescript
+import React, { useEffect, useState } from 'react';
+import { WeRelease } from '@werelease/sdk';
+
+function ChangelogBanner() {
+  const [werelease, setWerelease] = useState(null);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Initialize WeRelease
+    const initWeRelease = async () => {
+      const instance = await WeRelease.init({
+        projectId: 'your-project-id',
+        target: '#changelog-banner',
+      });
+
+      setWerelease(instance);
+    };
+
+    initWeRelease();
+  }, []);
+
+  // Call this when user logs in
+  const handleUserLogin = (userData) => {
+    if (werelease && userData) {
+      werelease.identify({
+        id: userData.id,
+        email: userData.email,
+        name: userData.name,
+      });
+      setUser(userData);
+    }
+  };
+
+  // Call this when user wants to give feedback
+  const handleFeedback = () => {
+    if (werelease) {
+      // Basic feedback
+      werelease.askForFeedback();
+    }
+  };
+
+  // Call this for custom feedback options
+  const handleCustomFeedback = () => {
+    if (werelease) {
+      werelease.askForFeedback({
+        dismiss: false, // Prevent modal dismissal
+        type: 'text', // Only collect text feedback
+      });
+    }
+  };
+
+  return (
+    <div>
+      <div id="changelog-banner" />
+
+      {user ? (
+        <div>
+          <button onClick={handleFeedback} className="feedback-button">
+            Give Feedback
+          </button>
+          <button onClick={handleCustomFeedback} className="custom-feedback-button">
+            Custom Feedback
+          </button>
+        </div>
+      ) : (
+        <button onClick={() => handleUserLogin({ id: '123', email: 'test@example.com', name: 'Test User' })}>
+          Login
+        </button>
+      )}
+    </div>
+  );
+}
+
+export default ChangelogBanner;
 ```
 
-## License
+### Simple Hook (Optional)
 
-MIT License - see [LICENSE](LICENSE) for details.
+If you want to use a custom hook, here's a simple one:
+
+```typescript
+import { useState, useEffect } from 'react';
+import { WeRelease } from '@werelease/sdk';
+
+function useWeRelease(projectId) {
+  const [werelease, setWerelease] = useState(null);
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    const init = async () => {
+      try {
+        const instance = await WeRelease.init({
+          projectId,
+          target: '#changelog-banner',
+        });
+
+        setWerelease(instance);
+        setIsReady(true);
+      } catch (error) {
+        console.error('Failed to initialize WeRelease:', error);
+      }
+    };
+
+    if (projectId) {
+      init();
+    }
+  }, [projectId]);
+
+  const identify = (userData) => {
+    if (werelease) {
+      werelease.identify(userData);
+    }
+  };
+
+  const askForFeedback = (options) => {
+    if (werelease) {
+      werelease.askForFeedback(options);
+    }
+  };
+
+  return {
+    werelease,
+    isReady,
+    identify,
+    askForFeedback,
+  };
+}
+
+// Usage in component
+function MyComponent() {
+  const { isReady, identify, askForFeedback } = useWeRelease('your-project-id');
+
+  if (!isReady) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div>
+      <div id="changelog-banner" />
+      <button onClick={() => identify({ id: '123', email: 'test@example.com' })}>
+        Login
+      </button>
+      <button onClick={() => askForFeedback()}>
+        Feedback
+      </button>
+      <button onClick={() => askForFeedback({ type: 'emoji', dismiss: false })}>
+        Emoji Only
+      </button>
+    </div>
+  );
+}
+```
+
+## Banner Themes
+
+The SDK automatically selects the appropriate theme based on your project's subscription status.
+
+### Basic Theme
+
+Automatically applied for basic subscriptions.
+
+```typescript
+const config = {
+  projectId: 'your-project-id',
+  options: {
+    // Basic theme is automatically applied
+  },
+};
+```
+
+![Basic Theme](https://ik.imagekit.io/rwnyqcevhi/WeRelease/glowshot-2025-08-25T21-06-12.png)
+
+### Premium Theme
+
+Automatically applied for premium subscriptions.
+
+```typescript
+const config = {
+  projectId: 'your-project-id',
+  options: {
+    // Premium theme is automatically applied
+  },
+};
+```
+
+![Premium Theme](https://ik.imagekit.io/rwnyqcevhi/WeRelease/glowshot-2025-08-25T20-57-40.png)
+
+## Configuration Options
+
+### Basic Configuration
+
+```typescript
+const config = {
+  projectId: 'your-project-id', // Required: Your project ID
+  target: '#changelog-banner', // Optional: Where to show the banner (default: 'body')
+  user: {
+    // Optional: User info
+    id: 'user-123',
+    email: 'user@example.com',
+    name: 'John Doe',
+  },
+  options: {
+    // Optional: Customization
+    showDismissButton: true, // Show close button (default: true)
+    feedbackType: 'both', // 'emoji', 'text', or 'both' (default: 'both')
+    makeBannerClickable: true, // Make banner clickable (default: true)
+    dismissFeedbackModal: true, // Allow feedback modal dismissal (default: true)
+    styles: {}, // Custom CSS variables
+    className: '', // Custom CSS class
+    onBannerClick: undefined, // Banner click event handler
+  },
+};
+```
+
+### Feedback Options
+
+When calling `askForFeedback()`, you can pass options to customize the behavior:
+
+```typescript
+// Basic feedback (uses default settings)
+werelease.askForFeedback();
+
+// Custom feedback options
+werelease.askForFeedback({
+  dismiss: false, // Prevent modal dismissal (default: true)
+  type: 'emoji', // Override feedback type: 'emoji', 'text', or 'both'
+});
+
+// Examples
+werelease.askForFeedback({ type: 'text' }); // Text feedback only
+wererelease.askForFeedback({ dismiss: false }); // Cannot dismiss modal
+werelease.askForFeedback({ type: 'emoji', dismiss: false }); // Emoji only, cannot dismiss
+```
+
+### Custom Styling
+
+```typescript
+const config = {
+  projectId: 'your-project-id',
+  options: {
+    styles: {
+      '--werelease-primary-color': '#3b82f6', // Primary color
+      '--werelease-border-radius': '8px', // Border radius
+      '--werelease-font-family': 'Inter, sans-serif', // Font family
+    },
+    className: 'my-custom-theme', // Custom CSS class
+  },
+};
+```
+
+### Event Handling
+
+```typescript
+const config = {
+  projectId: 'your-project-id',
+  options: {
+    onBannerClick: (event, data) => {
+      console.log('Banner clicked!', data);
+      // data contains: { projectId, releaseDate }
+    },
+  },
+};
+```
+
+## API Reference
+
+### Core Methods
+
+#### `WeRelease.init(config: WeReleaseConfig)`
+
+Initialize the SDK and return a WeRelease instance.
+
+#### `werelease.identify(userData: WeReleaseUser)`
+
+Map anonymous session to authenticated user.
+
+#### `werelease.askForFeedback(options?: WeReleaseFeedbackOptions)`
+
+Show feedback collection modal with optional customization.
+
+#### `werelease.hasFeedbackBeenSubmitted()`
+
+Check if user has already submitted feedback for current changelog.
+
+#### `werelease.resetFeedbackStatus()`
+
+Reset feedback status (useful for testing or admin functions).
+
+#### `werelease.captureFeedback()`
+
+Legacy method for feedback collection (backward compatibility).
+
+### Utility Methods
+
+#### `werelease.getProjectId()`
+
+Get current project ID.
+
+#### `werelease.getUser()`
+
+Get current user data.
+
+#### `werelease.getTarget()`
+
+Get current target element selector.
+
+#### `werelease.getOptions()`
+
+Get current configuration options.
+
+## Data Types
+
+### WeReleaseConfig
+
+```typescript
+interface WeReleaseConfig {
+  projectId: string;
+  user?: WeReleaseUser | null;
+  target?: string;
+  options?: WeReleaseOptions;
+}
+```
+
+### WeReleaseUser
+
+```typescript
+interface WeReleaseUser {
+  id: string;
+  email: string;
+  name: string;
+  role: string; // Optional Field
+}
+```
+
+### WeReleaseOptions
+
+```typescript
+interface WeReleaseOptions {
+  showDismissButton?: boolean;
+  makeBannerClickable?: boolean;
+  dismissFeedbackModal?: boolean;
+  feedbackType?: 'emoji' | 'text' | 'both';
+  styles?: Record<string, string>;
+  className?: string;
+  onBannerClick?: (
+    event: Event,
+    data: { projectId: string; releaseDate?: string }
+  ) => void;
+}
+```
+
+### WeReleaseFeedbackOptions
+
+```typescript
+interface WeReleaseFeedbackOptions {
+  dismiss?: boolean; // Override dismiss setting
+  type?: 'emoji' | 'text' | 'both'; // Override feedback type
+}
+```
 
 ## Support
 
-For support and questions, please visit our [documentation](https://werelease.com/docs) or contact us at support@werelease.com.
+For support and questions, please visit our [website](https://werelease.app) or contact us at connect@werelease.com.
