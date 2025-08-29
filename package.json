@@ -1,0 +1,47 @@
+{
+  "name": "@werelease/sdk",
+  "version": "1.1.3",
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "werelease",
+    "werelease-sdk",
+    "werelease-js-sdk",
+    "official",
+    "changelog",
+    "feedback",
+    "sdk",
+    "javascript",
+    "banner",
+    "modal",
+    "user-feedback",
+    "release-notes"
+  ],
+  "author": "WeRelease Team",
+  "license": "SEE LICENSE IN LICENSE",
+  "email": "connect@werelease.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dev-sanket/werelease-sdk"
+  },
+  "homepage": "https://werelease.app",
+  "official": true,
+  "bugs": {
+    "url": "https://github.com/dev-sanket/werelease-sdk/issues"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

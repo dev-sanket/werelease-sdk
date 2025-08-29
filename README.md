@@ -1,9 +1,12 @@
+[![Official SDK](https://img.shields.io/badge/WeRelease-Official%20SDK-blue?style=for-the-badge&logo=javascript)](https://werelease.app)
+
 # WeRelease SDK
 
-A lightweight JavaScript SDK for integrating changelog banners and feedback collection into your web applications. Built with TypeScript and designed for modern web development.
+**This is the official SDK for <a href="https://werelease.app" target="_blank" rel="noopener noreferrer">WeRelease</a>** - A lightweight JavaScript SDK for integrating changelog banners and feedback collection into your web applications. Built with TypeScript and designed for modern web development.
 
 ## Features
 
+- 🏆 **Official SDK**: The exact same SDK used by <a href="https://werelease.app" target="_blank" rel="noopener noreferrer">werelease.app</a> in production
 - 🚀 **Changelog Banners**: Display release updates with customizable themes (Basic & Premium)
 - 💬 **Feedback Collection**: Gather user feedback through emoji reactions and text comments
 - 👤 **User Identification**: Map anonymous sessions to authenticated users
@@ -17,6 +20,10 @@ A lightweight JavaScript SDK for integrating changelog banners and feedback coll
 - 🔧 **Utility Functions**: Date formatting, DOM manipulation, and markdown parsing
 
 ## Installation
+
+**Official SDK**: This is the official WeRelease SDK available on npm, yarn, and pnpm. It's the same SDK used by <a href="https://werelease.app" target="_blank" rel="noopener noreferrer">werelease.app</a> and maintained by the WeRelease team.
+
+> **Why Official?** This SDK is the exact same codebase used by <a href="https://werelease.app" target="_blank" rel="noopener noreferrer">werelease.app</a> in production. It's maintained by the WeRelease team and receives regular updates, bug fixes, and new features.
 
 ### NPM
 
@@ -43,6 +50,8 @@ pnpm add @werelease/sdk
 ```
 
 ## Quick Start
+
+> **Official SDK**: This is the official WeRelease SDK used by <a href="https://werelease.app" target="_blank" rel="noopener noreferrer">werelease.app</a>. Start integrating changelog banners and feedback collection in minutes.
 
 ### Basic Setup
 
@@ -93,6 +102,8 @@ werelease.identify(userData);
 ```
 
 ## React Integration
+
+> **Official SDK**: The same SDK used by <a href="https://werelease.app" target="_blank" rel="noopener noreferrer">werelease.app</a> with full React support and examples.
 
 ### Simple React Component
 
@@ -481,7 +492,7 @@ interface WeReleaseUser {
   id: string;
   email: string;
   name: string;
-  role: string; // Optional Field
+  role?: string;
 }
 ```
 
@@ -513,4 +524,6 @@ interface WeReleaseFeedbackOptions {
 
 ## Support
 
-For support and questions, please visit our [website](https://werelease.app) or contact us at connect@werelease.com.
+**This is the official WeRelease SDK** - For support and questions, please visit our <a href="https://werelease.app" target="_blank" rel="noopener noreferrer">website</a> or contact us at connect@werelease.com.
+
+> **Note**: This is the official SDK maintained by the WeRelease team and used by <a href="https://werelease.app" target="_blank" rel="noopener noreferrer">werelease.app</a>. For the most up-to-date documentation and examples, visit our website.
