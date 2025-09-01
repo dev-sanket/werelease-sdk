@@ -117,24 +117,28 @@ function ChangelogBanner() {
   useEffect(() => {
     // Initialize WeRelease when component mounts
     const initWeRelease = async () => {
-      const werelease = await WeRelease.init({
-        projectId: 'your-project-id',
-        target: '#changelog-banner',
-      });
+      try {
+        const werelease = await WeRelease.init({
+          projectId: 'your-project-id',
+          target: '#changelog-banner',
+        });
 
-      // Show feedback button when user clicks
-      const feedbackButton = document.getElementById('feedback-btn');
-      if (feedbackButton) {
-        feedbackButton.onclick = () => {
-          // Basic feedback request
-          werelease.askForFeedback();
+        // Show feedback button when user clicks
+        const feedbackButton = document.getElementById('feedback-btn');
+        if (feedbackButton) {
+          feedbackButton.onclick = () => {
+            // Basic feedback request
+            werelease.askForFeedback();
 
-          // Or with custom options
-          werelease.askForFeedback({
-            dismiss: false, // Prevent modal dismissal
-            type: 'emoji', // Only collect emoji reactions
-          });
-        };
+            // Or with custom options
+            werelease.askForFeedback({
+              dismiss: false, // Prevent modal dismissal
+              type: 'emoji', // Only collect emoji reactions
+            });
+          };
+        }
+      } catch (error) {
+        console.error('Failed to initialize WeRelease:', error);
       }
     };
 
